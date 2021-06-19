@@ -11,17 +11,34 @@ import static br.maua.models.Mensagem.gerarMensagem;
 import static java.lang.Math.*;
 
 public class Sistema implements Data {
+
+    /**
+     * Atributos do sistema
+     */
+    //Horario de atividade atual
     public HorarioDeAtividade hora = HorarioDeAtividade.REGULAR;
+    //ArrayList de membros
     private ArrayList<Membro> membros = new ArrayList<>();
 
+    /**
+     * Metodo para gerar ano aleatorio
+     * @return ano
+     */
     @Override
     public int gerarAno() {
         return (int) floor(2021 + (231 * PI) / exp(0));
     }
 
+    /**
+     * Construtor padrao
+     */
     public Sistema() {
     }
 
+    /**
+     * Menu com opcoes para teste do sistema
+     * @throws Exception caso algum erro ocorra
+     */
     private void menu() throws Exception{
         System.out.print("--- Menu ---\n" +
                 "Hora de trabalho:" + hora + "\tAno:" + gerarAno() + "\n" +
@@ -37,6 +54,7 @@ public class Sistema implements Data {
         Scanner sc2 = new Scanner(System.in);
         int op = sc.nextInt();
         switch (op) {
+            //Cadastra 4 usuarios
             case 1:
                 System.out.print("Nome do usuario Mobile Member: ");
                 String nome = sc2.nextLine();
@@ -54,35 +72,53 @@ public class Sistema implements Data {
                 nome = sc2.nextLine();
                 cadastrarUsuario(nome, "bigbig@grandao.com", TipoDeMembro.BIGBROTHER);
                 break;
+
+            //Posta uma mensagem pra acda usuario ativo
             case 2:
                 for (Membro membro : membros) {
                     System.out.println(membro.postarMensagem(gerarMensagem(), this.hora) + "\n");
                 }
                 break;
+
+            //Troca a hora de atividade
             case 3:
                 if (this.hora == HorarioDeAtividade.REGULAR)
                     this.hora = HorarioDeAtividade.EXTRA;
                 else
                     this.hora = HorarioDeAtividade.REGULAR;
                 break;
+
+            //Exclui o primeiro Heavy Lifter e o segundo Script guy
             case 4:
                 excluirMembro(1, TipoDeMembro.HEAVYLIFTER);
                 excluirMembro(2, TipoDeMembro.SCRIPTGUY);
                 break;
-            case 5:
 
-                break;
+            //Encerra o sistema
             case 0:
                 System.out.println("Encerrando o sitema...");
                 System.exit(0);
+
+            //Caso uma opcao invalida seja inserida
             default:
                 System.out.println("Opcao invalida. Tente novamente");
                 System.out.println("");
         }
     }
 
+    /**
+     * Cadastro de um membro no sistema
+     * @param nome nome do usuario
+     * @param email email do usuario
+     * @param tipoDeMembro tipo de usuario
+     * @throws Exception caso algum erro ocorra
+     */
     private void cadastrarUsuario(String nome, String email, TipoDeMembro tipoDeMembro) throws Exception {
+
+        //Incremento no id de usuario
         int id = membros.size() + 1;
+
+        //Avalia o ussuario a ser cadastrado
         switch (tipoDeMembro) {
             case BIGBROTHER:
                 membros.add(new BigBrother(nome, email, id, TipoDeMembro.BIGBROTHER));
@@ -97,17 +133,25 @@ public class Sistema implements Data {
                 membros.add(new ScriptGuy(nome, email, id, TipoDeMembro.SCRIPTGUY));
                 break;
         }
+
+        //Adiciona o usuario ao banco de usuarios (.csv) na forma "id;email;nome;tipo\n"
         try{
         FileWriter fileWriter = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
         fileWriter.append(id + ";" + email + ";" + nome + ";" + tipoDeMembro + "\n");
         fileWriter.close();
         }
+        //Caso algum erro ocorra ao tentar adicionar ao arquivo
         catch(Exception exception){
             System.out.println("Algo deu errado no cadastro.");
         }
     }
 
-
+    /**
+     * Exclusao de membro da base de usuario
+     * @param referencia 1 = primeiro, 2 = segundo ...
+     * @param tipoDeMembro tipo do membro a ser deletado
+     * @throws Exception caso algum erro ocorra
+     */
     private void excluirMembro(int referencia, TipoDeMembro tipoDeMembro) throws Exception {
         // Referencia atual
         int atual = 0;
@@ -123,6 +167,8 @@ public class Sistema implements Data {
                 membros.remove(membro);
             }
         }
+
+        //Remocao do usuario do banco de usuarios
         try {
             File file = new File("arquivo_super_Secreto_nao_abrir.csv");
             file.delete();
@@ -132,11 +178,16 @@ public class Sistema implements Data {
             }
             fileWriter.close();
         }
+        //Caso algum erro ocorra na remocao
         catch(Exception exception){
             System.out.println("Algo deu errado na exclusao.");
         }
     }
 
+    /**
+     * Metodo para iniciar o sistema
+     * @throws Exception caso algum erro ocorra
+     */
     public void iniciar() throws Exception{
         while(true)
             menu();
