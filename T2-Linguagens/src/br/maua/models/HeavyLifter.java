@@ -3,6 +3,9 @@ package br.maua.models;
 import br.maua.enums.HorarioDeAtividade;
 import br.maua.enums.TipoDeMembro;
 
+/**
+ * Classe para representar membros Heavy Lifter
+ */
 public class HeavyLifter extends Membro{
     //Assinatura usada em tempo regular
     private final String assinaturaRegular = "Podem contar conosco!";
