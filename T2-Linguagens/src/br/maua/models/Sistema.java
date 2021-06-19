@@ -5,14 +5,13 @@ import br.maua.enums.TipoDeMembro;
 import br.maua.interfaces.Data;
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.channels.DatagramChannel;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static br.maua.models.Mensagem.gerarMensagem;
 import static java.lang.Math.*;
 
-/**
- * Classe principal do sistema
- */
+//**
 public class Sistema implements Data {
 
     /**
@@ -93,8 +92,10 @@ public class Sistema implements Data {
 
             //Exclui o primeiro Heavy Lifter e o segundo Script guy
             case 4:
-                excluirMembro(1, TipoDeMembro.HEAVYLIFTER);
-                excluirMembro(2, TipoDeMembro.SCRIPTGUY);
+                if(excluirMembro(1, TipoDeMembro.HEAVYLIFTER))
+                    System.out.println("Membro excluido com sucesso");
+                if(excluirMembro(2, TipoDeMembro.SCRIPTGUY))
+                    System.out.println("Membro excluido com sucesso");
                 break;
 
             //Encerra o sistema
@@ -154,37 +155,45 @@ public class Sistema implements Data {
      * @param referencia 1 = primeiro, 2 = segundo ...
      * @param tipoDeMembro tipo do membro a ser deletado
      * @throws Exception caso algum erro ocorra
+     * @return true/false se excluiu ou nao o membro
      */
-    private void excluirMembro(int referencia, TipoDeMembro tipoDeMembro) throws Exception {
+    private boolean excluirMembro(int referencia, TipoDeMembro tipoDeMembro) throws Exception {
         // Referencia atual
         int atual = 0;
-
+        boolean achou = false;
         //Passagem por cada membro
         for(Membro membro:membros){
             //Se o membro atual é do tipo de interesse, incrementa a ref. atual
-            if(membro.getTipoDeMembro() == tipoDeMembro) {
+            if(tipoDeMembro == membro.getTipoDeMembro()) {
                 atual += 1;
             }
+
             //Se a ref. atual é que desejamos remover, remove o membro do array de membros
             if(atual == referencia) {
                 membros.remove(membro);
+                achou = true;
+                break;
             }
+
         }
 
-        //Remocao do usuario do banco de usuarios
-        try {
-            File file = new File("arquivo_super_Secreto_nao_abrir.csv");
-            file.delete();
-            FileWriter fileWriter = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
-            for (Membro membro : membros) {
-                fileWriter.append(membro.getId() + ";" + membro.getEmail() + ";" + membro.getNome() + ";" + membro.getTipoDeMembro() + "\n");
+        if(achou) {
+            //Remocao do usuario do banco de usuarios
+            try {
+                File file = new File("arquivo_super_Secreto_nao_abrir.csv");
+                file.delete();
+                FileWriter fileWriter = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
+                for (Membro membro : membros) {
+                    fileWriter.append(membro.getId() + ";" + membro.getEmail() + ";" + membro.getNome() + ";" + membro.getTipoDeMembro() + "\n");
+                }
+                fileWriter.close();
             }
-            fileWriter.close();
+            //Caso algum erro ocorra na remocao
+            catch (Exception exception) {
+                System.out.println("Algo deu errado na exclusao.");
+            }
         }
-        //Caso algum erro ocorra na remocao
-        catch(Exception exception){
-            System.out.println("Algo deu errado na exclusao.");
-        }
+        return achou;
     }
 
     /**
