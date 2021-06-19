@@ -4,8 +4,11 @@ import br.maua.enums.HorarioDeAtividade;
 import br.maua.enums.TipoDeMembro;
 
 public class HeavyLifter extends Membro{
+    //Assinatura usada em tempo regular
     private final String assinaturaRegular = "Podem contar conosco!";
+    //Assinatura em hora extra
     private final String assinaturaExtra = "N00b_qu3_n_Se_r3pita.bat";
+    //Enum do tipo de membro
     private final TipoDeMembro tipoDeMembro = TipoDeMembro.HEAVYLIFTER;
 
     /**
@@ -26,8 +29,10 @@ public class HeavyLifter extends Membro{
      */
     @Override
     public String postarMensagem(String mensagem, HorarioDeAtividade hora){
+        //Caso seja hora extra
         if(hora == HorarioDeAtividade.EXTRA)
             return (mensagem + "\n" + this.assinaturaExtra);
+        //caso seja hora regular
         else
             return (mensagem + "\n" + this.assinaturaRegular);
     }
