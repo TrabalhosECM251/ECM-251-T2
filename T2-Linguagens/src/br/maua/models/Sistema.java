@@ -69,6 +69,9 @@ public class Sistema implements Data {
                 excluirMembro(1, TipoDeMembro.HEAVYLIFTER);
                 excluirMembro(2, TipoDeMembro.SCRIPTGUY);
                 break;
+            case 5:
+
+                break;
             case 0:
                 System.out.println("Encerrando o sitema...");
                 System.exit(0);
@@ -82,16 +85,16 @@ public class Sistema implements Data {
         int id = membros.size() + 1;
         switch (tipoDeMembro) {
             case BIGBROTHER:
-                membros.add(new BigBrother(nome, email, id));
+                membros.add(new BigBrother(nome, email, id, TipoDeMembro.BIGBROTHER));
                 break;
             case HEAVYLIFTER:
-                membros.add(new HeavyLifter(nome, email, id));
+                membros.add(new HeavyLifter(nome, email, id, TipoDeMembro.HEAVYLIFTER));
                 break;
             case MOBILEMEMBER:
-                membros.add(new MobileMember(nome, email, id));
+                membros.add(new MobileMember(nome, email, id, TipoDeMembro.MOBILEMEMBER));
                 break;
             case SCRIPTGUY:
-                membros.add(new ScriptGuy(nome, email, id));
+                membros.add(new ScriptGuy(nome, email, id, TipoDeMembro.SCRIPTGUY));
                 break;
         }
         try{
@@ -107,11 +110,15 @@ public class Sistema implements Data {
 
     private void excluirMembro(int referencia, TipoDeMembro tipoDeMembro) throws Exception {
         int atual = 0;
+        membros.remove(1);
         for(Membro membro:membros){
+            System.out.println("t1");
             if(membro.getTipoDeMembro() == tipoDeMembro) {
                 atual += 1;
-                if(atual == referencia)
-                    membros.remove(membro);
+                System.out.println("t2");
+                if(atual == referencia) {
+                    //membros.remove(1);
+                }
             }
         }
         try {
@@ -120,8 +127,8 @@ public class Sistema implements Data {
             FileWriter fileWriter = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
             for (Membro membro : membros) {
                 fileWriter.append(membro.getId() + ";" + membro.getEmail() + ";" + membro.getNome() + ";" + membro.getTipoDeMembro() + "\n");
-                fileWriter.close();
             }
+            fileWriter.close();
         }
         catch(Exception exception){
             System.out.println("Algo deu errado na exclusao.");

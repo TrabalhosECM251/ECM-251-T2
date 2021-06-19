@@ -20,10 +20,11 @@ abstract class Membro implements PostarMensagem,Apresentacao {
      * @param nome nome do membro
      * @param email email do membro
      */
-    public Membro(String nome, String email, int id){
+    public Membro(String nome, String email, int id, TipoDeMembro tipoDeMembro){
         this.nome = nome;
         this.email = email;
         this.id = id;
+        this.tipoDeMembro = tipoDeMembro;
     }
 
     /**
@@ -45,8 +46,8 @@ abstract class Membro implements PostarMensagem,Apresentacao {
         return assinaturaExtra;
     }
 
-    public TipoDeMembro getTipoDeMembro() {
-        return tipoDeMembro;
+    public TipoDeMembro getTipoDeMembro(){
+        return this.tipoDeMembro;
     }
 
     public int getId() {

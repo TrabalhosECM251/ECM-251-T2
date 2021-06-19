@@ -14,8 +14,8 @@ public class BigBrother extends Membro{
      * @param email email do membro
      * @param id id do membro
      */
-    public BigBrother(String nome, String email, int id) {
-        super(nome, email, id);
+    public BigBrother(String nome, String email, int id, TipoDeMembro tipoDeMembro) {
+        super(nome, email, id, tipoDeMembro);
     }
 
     /**

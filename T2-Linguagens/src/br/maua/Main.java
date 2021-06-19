@@ -11,7 +11,7 @@ public class Main {
             sistema.iniciar();
         }
         catch (Exception e){
-            System.out.printf("Falha na inicializacao");
+            System.out.println("Ocorreu algum erro");
         }
     }
 }
