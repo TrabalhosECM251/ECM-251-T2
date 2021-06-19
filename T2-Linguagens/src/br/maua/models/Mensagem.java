@@ -2,7 +2,12 @@ package br.maua.models;
 
 import java.util.Random;
 
+/**
+ * Classee para escolher uma mensagem aleatoria para ser enviada
+ * Fins de teste
+ */
 public class Mensagem {
+    //Lista de frases aleatorias
     public static String[] bancoMensagens = new String[]{"Não se esqueça de beber água.",
             "Seja estranho. Seja aleatório. Seja quem você é. Porque você nunca sabe quem amaria a pessoa que você esconde.",
             "A vida é um caos aleatório, ordenada pelo tempo.",
@@ -16,6 +21,10 @@ public class Mensagem {
             "Seja bondoso com seus amigos." };
 
 
+    /**
+     * Gera uma mensagem aleatoria
+     * @return mensagem (string)
+     */
     public static String gerarMensagem(){
         Random random = new Random();
         int i = random.nextInt(bancoMensagens.length);
