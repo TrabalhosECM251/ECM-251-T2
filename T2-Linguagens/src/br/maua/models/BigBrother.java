@@ -3,6 +3,9 @@ package br.maua.models;
 import br.maua.enums.HorarioDeAtividade;
 import br.maua.enums.TipoDeMembro;
 
+/**
+ * Classe para representar membros Big Brother
+ */
 public class BigBrother extends Membro{
     //Assinatura usada em tempo regular
     private final String assinaturaRegular = "Sempre ajudando as pessoas membros ou não S2!";
