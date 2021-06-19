@@ -3,7 +3,7 @@ package br.maua.models;
 import java.util.Random;
 
 public class Mensagem {
-    String[] bancoMensagens = new String[]{"Não se esqueça de beber água.",
+    public static String[] bancoMensagens = new String[]{"Não se esqueça de beber água.",
             "Seja estranho. Seja aleatório. Seja quem você é. Porque você nunca sabe quem amaria a pessoa que você esconde.",
             "A vida é um caos aleatório, ordenada pelo tempo.",
             "A verdade, é que dói lembrar dela.",
@@ -15,9 +15,8 @@ public class Mensagem {
             "Quem tenta fazer todo mundo feliz acaba se sentido mais sozinho.",
             "Seja bondoso com seus amigos." };
 
-    public Mensagem(){};
 
-    public String gerarMensagem(){
+    public static String gerarMensagem(){
         Random random = new Random();
         int i = random.nextInt(bancoMensagens.length);
         return bancoMensagens[i];

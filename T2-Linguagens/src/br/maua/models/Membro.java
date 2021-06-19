@@ -48,4 +48,8 @@ abstract class Membro implements PostarMensagem,Apresentacao {
     public TipoDeMembro getTipoDeMembro() {
         return tipoDeMembro;
     }
+
+    public int getId() {
+        return id;
+    }
 }

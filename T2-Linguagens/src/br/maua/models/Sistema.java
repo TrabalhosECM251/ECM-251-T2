@@ -3,9 +3,11 @@ package br.maua.models;
 import br.maua.enums.HorarioDeAtividade;
 import br.maua.enums.TipoDeMembro;
 import br.maua.interfaces.Data;
-
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import static br.maua.models.Mensagem.gerarMensagem;
 import static java.lang.Math.*;
 
 public class Sistema implements Data {
@@ -13,43 +15,59 @@ public class Sistema implements Data {
     private ArrayList<Membro> membros = new ArrayList<>();
 
     @Override
-    public int gerarAno(){
-        return (int) floor(2021 +(231* PI)/exp(0));
+    public int gerarAno() {
+        return (int) floor(2021 + (231 * PI) / exp(0));
     }
 
-    private void menu(){
+    public Sistema() {
+    }
+
+    private void menu() throws Exception{
         System.out.print("--- Menu ---\n" +
-                "Hora de trabalho:" + hora + "Ano:" + gerarAno() + "\n" +
+                "Hora de trabalho:" + hora + "\tAno:" + gerarAno() + "\n" +
+                "-----------------------------------\n" +
                 "1 - Cadastrar membros\n" +
                 "2 - Postar mensagem pra cada membro cadastrado\n" +
                 "3 - Trocar horario de trabalho\n" +
                 "4 - Excluir membro\n" +
-                "0 - Encerrar sistema");
+                "0 - Encerrar sistema\n");
+
 
         Scanner sc = new Scanner(System.in);
+        Scanner sc2 = new Scanner(System.in);
         int op = sc.nextInt();
-        switch (op){
+        switch (op) {
             case 1:
-                cadastrarUsuario(big);
-                cadastrarUsuario();
-                cadastrarUsuario();
-                cadastrarUsuario();
+                System.out.print("Nome do usuario Mobile Member: ");
+                String nome = sc2.nextLine();
+                cadastrarUsuario(nome, "confia@email.com", TipoDeMembro.MOBILEMEMBER);
+
+                System.out.print("Nome do usuario Heavy Lifter: ");
+                nome = sc2.nextLine();
+                cadastrarUsuario(nome, "foguetentemre@forget.com", TipoDeMembro.HEAVYLIFTER);
+
+                System.out.print("Nome do usuario Script Guy: ");
+                nome = sc2.nextLine();
+                cadastrarUsuario(nome, "blablabla@teste.com", TipoDeMembro.SCRIPTGUY);
+
+                System.out.print("Nome do usuario Big brother: ");
+                nome = sc2.nextLine();
+                cadastrarUsuario(nome, "bigbig@grandao.com", TipoDeMembro.BIGBROTHER);
                 break;
             case 2:
-                postarMensagem();
-                postarMensagem();
-                postarMensagem();
-                postarMensagem();
+                for (Membro membro : membros) {
+                    System.out.println(membro.postarMensagem(gerarMensagem(), this.hora) + "\n");
+                }
                 break;
             case 3:
-                if(this.hora == HorarioDeAtividade.REGULAR)
+                if (this.hora == HorarioDeAtividade.REGULAR)
                     this.hora = HorarioDeAtividade.EXTRA;
                 else
                     this.hora = HorarioDeAtividade.REGULAR;
                 break;
             case 4:
-                excluirMembro();
-                excluirMembro();
+                excluirMembro(1, TipoDeMembro.HEAVYLIFTER);
+                excluirMembro(2, TipoDeMembro.SCRIPTGUY);
                 break;
             case 0:
                 System.out.println("Encerrando o sitema...");
@@ -60,9 +78,9 @@ public class Sistema implements Data {
         }
     }
 
-    private void cadastrarUsuario(String nome, String email, TipoDeMembro tipoDeMembro){
+    private void cadastrarUsuario(String nome, String email, TipoDeMembro tipoDeMembro) throws Exception {
         int id = membros.size() + 1;
-        switch (tipoDeMembro){
+        switch (tipoDeMembro) {
             case BIGBROTHER:
                 membros.add(new BigBrother(nome, email, id));
                 break;
@@ -76,5 +94,42 @@ public class Sistema implements Data {
                 membros.add(new ScriptGuy(nome, email, id));
                 break;
         }
+        try{
+        FileWriter fileWriter = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
+        fileWriter.append(id + ";" + email + ";" + nome + ";" + tipoDeMembro + "\n");
+        fileWriter.close();
+        }
+        catch(Exception exception){
+            System.out.println("Algo deu errado no cadastro.");
+        }
+    }
+
+
+    private void excluirMembro(int referencia, TipoDeMembro tipoDeMembro) throws Exception {
+        int atual = 0;
+        for(Membro membro:membros){
+            if(membro.getTipoDeMembro() == tipoDeMembro) {
+                atual += 1;
+                if(atual == referencia)
+                    membros.remove(membro);
+            }
+        }
+        try {
+            File file = new File("arquivo_super_Secreto_nao_abrir.csv");
+            file.delete();
+            FileWriter fileWriter = new FileWriter("arquivo_super_Secreto_nao_abrir.csv", true);
+            for (Membro membro : membros) {
+                fileWriter.append(membro.getId() + ";" + membro.getEmail() + ";" + membro.getNome() + ";" + membro.getTipoDeMembro() + "\n");
+                fileWriter.close();
+            }
+        }
+        catch(Exception exception){
+            System.out.println("Algo deu errado na exclusao.");
+        }
+    }
+
+    public void iniciar() throws Exception{
+        while(true)
+            menu();
     }
 }
