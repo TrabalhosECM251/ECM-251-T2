@@ -21,23 +21,25 @@ public class HeavyLifter extends Membro{
      * Metodo para postar mensagem
      * @param mensagem mensagem a ser postada
      * @param hora hora em que esta sendo postada
+     * @return Mensagem assinada
      */
     @Override
-    public void postarMensagem(String mensagem, HorarioDeAtividade hora){
+    public String postarMensagem(String mensagem, HorarioDeAtividade hora){
         if(hora == HorarioDeAtividade.EXTRA)
-            System.out.printf(mensagem + "\n" + this.assinaturaExtra);
+            return (mensagem + "\n" + this.assinaturaExtra);
         else
-            System.out.printf(mensagem + "\n" + this.assinaturaRegular);
+            return (mensagem + "\n" + this.assinaturaRegular);
     }
 
     /**
      * Apresentacao do membro
+     * @return texto de apresentacao
      */
     @Override
-    public void apresentar(){
-        System.out.println("Nome:" + this.getNome());
-        System.out.println("Email:" + this.getEmail());
-        System.out.println("Tipo: Heavy Lifter");
-        System.out.println("------------------------------------");
+    public String apresentar(){
+        return ("Nome:" + this.getNome() + "\n" +
+                "Email:" + this.getEmail() + "\n" +
+                "Tipo: Heavy Lifter\n" +
+                "------------------------------------\n");
     }
 }
