@@ -10,6 +10,9 @@ import java.util.Scanner;
 import static br.maua.models.Mensagem.gerarMensagem;
 import static java.lang.Math.*;
 
+/**
+ * Classe principal do sistema
+ */
 public class Sistema implements Data {
 
     /**
