@@ -45,15 +45,16 @@ public class Sistema implements Data {
         System.out.print("--- Menu ---\n" +
                 "Hora de trabalho:" + hora + "\tAno:" + gerarAno() + "\n" +
                 "-----------------------------------\n" +
-                "1 - Cadastrar membros\n" +
+                "1 - Cadastrar 4 membros\n" +
                 "2 - Postar mensagem pra cada membro cadastrado\n" +
                 "3 - Trocar horario de trabalho\n" +
                 "4 - Excluir membro\n" +
+                "5 - Apresentar membro pelo ID\n" +
                 "0 - Encerrar sistema\n");
-
 
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
+        Scanner sc3 = new Scanner(System.in);
         int op = sc.nextInt();
         switch (op) {
             //Cadastra 4 usuarios
@@ -98,6 +99,23 @@ public class Sistema implements Data {
                     System.out.println("Membro excluido com sucesso");
                 break;
 
+            //Apresenta um membro pelo id
+            case 5:
+                System.out.print("Digite o id do membro desejado: ");
+                //Scan do id desejado
+                int id = sc3.nextInt();
+                boolean achou = false;
+                //Procura o membro
+                for(Membro membro:membros){
+                    if(membro.getId() == id) {
+                        System.out.println(membro.apresentar());
+                        achou = true;
+                    }
+                }
+                //Caso nao ache na base
+                if(!achou)
+                    System.out.printf("Membro com ID (" + id + ") nao encontrado\n");
+                break;
             //Encerra o sistema
             case 0:
                 System.out.println("Encerrando o sitema...");
