@@ -8,11 +8,17 @@ import br.maua.interfaces.PostarMensagem;
  * Classe abstrata para representar um membro
  */
 abstract class Membro implements PostarMensagem,Apresentacao {
+    //Nome do membro (nick)
     private String nome;
+    //Email do membro
     private String email;
+    //ID do membro
     private int id;
+    //Assinatura em hora regular
     private String assinaturaRegular;
+    //Assinatura em hora extra
     private String assinaturaExtra;
+    //Enum do tipo de membro
     private TipoDeMembro tipoDeMembro;
 
     /**
