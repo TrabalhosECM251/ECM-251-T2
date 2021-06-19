@@ -18,12 +18,10 @@ abstract class Membro implements PostarMensagem,Apresentacao {
      * Construtor de um membro
      * @param nome nome do membro
      * @param email email do membro
-     * @param tipoDeMembro tipo de membro
      */
-    public Membro(String nome, String email, TipoDeMembro tipoDeMembro){
+    public Membro(String nome, String email){
         this.nome = nome;
         this.email = email;
-        this.tipoDeMembro = tipoDeMembro;
     }
 
     /**
