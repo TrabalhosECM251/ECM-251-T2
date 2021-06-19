@@ -109,16 +109,18 @@ public class Sistema implements Data {
 
 
     private void excluirMembro(int referencia, TipoDeMembro tipoDeMembro) throws Exception {
+        // Referencia atual
         int atual = 0;
-        membros.remove(1);
+
+        //Passagem por cada membro
         for(Membro membro:membros){
-            System.out.println("t1");
+            //Se o membro atual é do tipo de interesse, incrementa a ref. atual
             if(membro.getTipoDeMembro() == tipoDeMembro) {
                 atual += 1;
-                System.out.println("t2");
-                if(atual == referencia) {
-                    //membros.remove(1);
-                }
+            }
+            //Se a ref. atual é que desejamos remover, remove o membro do array de membros
+            if(atual == referencia) {
+                membros.remove(membro);
             }
         }
         try {
