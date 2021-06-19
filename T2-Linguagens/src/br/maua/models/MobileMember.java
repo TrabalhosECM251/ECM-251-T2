@@ -3,9 +3,15 @@ package br.maua.models;
 import br.maua.enums.HorarioDeAtividade;
 import br.maua.enums.TipoDeMembro;
 
+/**
+ * Classe para representar membros Mobile
+ */
 public class MobileMember extends Membro{
+    //Assinatura usada em tempo regular
     private final String assinaturaRegular = "Happy Coding!";
+    //Assinatura usada em hora extra
     private final String assinaturaExtra = "MAsK_S0c13ty";
+    //Enum do tipo de membro
     private final TipoDeMembro tipoDeMembro = TipoDeMembro.MOBILEMEMBER;
 
     /**
@@ -26,8 +32,10 @@ public class MobileMember extends Membro{
      */
     @Override
     public String postarMensagem(String mensagem, HorarioDeAtividade hora){
+        //Caso seja hora extra
         if(hora == HorarioDeAtividade.EXTRA)
             return (mensagem + "\n" + this.assinaturaExtra);
+        //caso seja hora regular
         else
             return (mensagem + "\n" + this.assinaturaRegular);
     }
