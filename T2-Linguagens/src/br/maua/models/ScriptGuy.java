@@ -26,8 +26,10 @@ public class ScriptGuy extends Membro{
      */
     @Override
     public String postarMensagem(String mensagem, HorarioDeAtividade hora){
+        //Caso seja hora extra
         if(hora == HorarioDeAtividade.EXTRA)
             return (mensagem + "\n" + this.assinaturaExtra);
+        //caso seja hora regular
         else
             return (mensagem + "\n" + this.assinaturaRegular);
     }
