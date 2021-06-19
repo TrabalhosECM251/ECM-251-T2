@@ -12,9 +12,10 @@ public class ScriptGuy extends Membro{
      * Construtor da classe
      * @param nome nome do membro
      * @param email email do membro
+     * @param id id do membro
      */
-    public ScriptGuy(String nome, String email) {
-        super(nome, email);
+    public ScriptGuy(String nome, String email, int id) {
+        super(nome, email, id);
     }
 
     /**

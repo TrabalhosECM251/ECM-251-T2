@@ -30,7 +30,7 @@ public class Sistema implements Data {
         int op = sc.nextInt();
         switch (op){
             case 1:
-                cadastrarUsuario();
+                cadastrarUsuario(big);
                 cadastrarUsuario();
                 cadastrarUsuario();
                 cadastrarUsuario();
@@ -61,18 +61,19 @@ public class Sistema implements Data {
     }
 
     private void cadastrarUsuario(String nome, String email, TipoDeMembro tipoDeMembro){
+        int id = membros.size() + 1;
         switch (tipoDeMembro){
             case BIGBROTHER:
-                membros.add(new BigBrother(nome, email));
+                membros.add(new BigBrother(nome, email, id));
                 break;
             case HEAVYLIFTER:
-                membros.add(new HeavyLifter(nome, email));
+                membros.add(new HeavyLifter(nome, email, id));
                 break;
             case MOBILEMEMBER:
-                membros.add(new MobileMember(nome, email));
+                membros.add(new MobileMember(nome, email, id));
                 break;
             case SCRIPTGUY:
-                membros.add(new ScriptGuy(nome, email));
+                membros.add(new ScriptGuy(nome, email, id));
                 break;
         }
     }

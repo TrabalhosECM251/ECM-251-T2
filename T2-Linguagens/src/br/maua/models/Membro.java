@@ -10,6 +10,7 @@ import br.maua.interfaces.PostarMensagem;
 abstract class Membro implements PostarMensagem,Apresentacao {
     private String nome;
     private String email;
+    private int id;
     private String assinaturaRegular;
     private String assinaturaExtra;
     private TipoDeMembro tipoDeMembro;
@@ -19,9 +20,10 @@ abstract class Membro implements PostarMensagem,Apresentacao {
      * @param nome nome do membro
      * @param email email do membro
      */
-    public Membro(String nome, String email){
+    public Membro(String nome, String email, int id){
         this.nome = nome;
         this.email = email;
+        this.id = id;
     }
 
     /**
